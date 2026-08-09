@@ -7,6 +7,12 @@ main {
     box-sizing: border-box;
 }
 
+@property --rotate{
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
 .form-container {
     width: 100%;
     max-width: 400px;
@@ -15,6 +21,28 @@ main {
     flex-direction: column;
     gap: 1rem;
     text-align: center;
+    border: 5px solid rgba(255, 255, 255, 0);
+    padding: 2rem 3rem;
+    transition: all linear 0.2s;
+    background: linear-gradient(rgb(27, 27, 27)) padding-box,
+    conic-gradient(from var(--rotate), rgb(27, 27, 27), rgb(255, 255, 255), rgb(27, 27, 27)) border-box;
+    border-radius: 15px;
+}
+
+.form-container:hover{
+    box-shadow: 0 0 20px  rgb(253, 253, 253);
+    animation: brdAnimate 5s infinite;
+    animation-timing-function: linear;
+    /* border-width: 5px; */
+}
+
+@keyframes brdAnimate {
+    from{
+        --rotate:0deg;
+    }
+    to{
+        --rotate:360deg;
+    }
 }
 
 .form-container form {
@@ -32,6 +60,7 @@ form input {
     padding: 1rem;
     border-radius: 10px;
     font-size: 1rem;
+    position: relative;
 }
 
 form button {
@@ -83,9 +112,6 @@ form label {
 }
 
 @media (max-width: 480px) {
-    main {
-        padding: 1rem;
-    }
 
     .form-container {
         max-width: 100%;

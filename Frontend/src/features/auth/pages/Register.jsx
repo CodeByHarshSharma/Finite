@@ -22,18 +22,17 @@ const Register = () => {
     navigate('/')
   }
 
-  if(loading){
-    return (<main><h1></h1></main>)
-  }
-
   return (
     <main>
       <div className="form-container">
         <h1>Register</h1>
         <form onSubmit={handleSubmit}>
           <input onInput={(e) => {setUsername(e.target.value)}} type="text" name="username" placeholder='Enter Username' />
+
           <input onInput={(e) => {setEmail(e.target.value)}} type="email" name="email" placeholder='Enter Email' />
+
           <input onInput={(e) => {setPassword(e.target.value)}} type="password" name="password" placeholder='Enter Password' />
+
           <button type='submit'>Register</button>
         </form>
 
