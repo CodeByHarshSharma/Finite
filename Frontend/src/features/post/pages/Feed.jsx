@@ -45,12 +45,12 @@ const Feed = () => {
                 </div>
                 <div className="posts">
                     {feed.filter(Boolean).map(post => {
-                        return <Post
-                            key={post._id}
-                            user={post.user}
-                            post={post}
-                            handleLike={handleLike}
-                            handleUnLike={handleUnLike} />
+                        return<Post
+                                key={post._id}
+                                user={post.user}
+                                post={post}
+                                handleLike={handleLike}
+                                handleUnLike={handleUnLike} />
                     })}
                 </div>
             </div>

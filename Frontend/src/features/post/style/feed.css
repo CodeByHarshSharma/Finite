@@ -214,8 +214,19 @@
     display: none;
 }
 
-.create-post-page select {
+.create-post-page form{
     width: 100%;
+    padding: 0rem 3rem;
+}
+
+.create-post-page form input, label {
+    width: calc(100% + 10rem);
+    margin-left: -5rem;
+}
+
+.create-post-page select {
+    width: calc(100% + 10rem);
+    margin-left: -5rem;
     background: #ffffff;
     border: 1px solid #262629;
     color: #212121;
@@ -326,21 +337,22 @@
 }
 
 .text-post-compose textarea {
-    width: 100%;
+    width: calc(100% + 10rem);
+    margin-left: -5rem;
     min-height: 120px;
     background: #ffffff;
     border: 1px solid #262629;
     border-radius: 12px;
     color: #151515;
     font-size: 16px;
-    padding: 14px;
+    padding: 15px;
     resize: vertical;
 }
 
 .text-post-compose .char-count {
     position: absolute;
     bottom: 10px;
-    right: 14px;
+    right: -70px;
     font-size: 12px;
     color: #71717a;
 }
