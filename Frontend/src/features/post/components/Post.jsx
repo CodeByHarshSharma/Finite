@@ -16,14 +16,17 @@ function timeAgo(date) {
 const Post = ({ user, post, handleLike, handleUnLike }) => {
     const [isLiked, setIsLiked] = useState(post.isLiked);
     const [isSaved, setIsSaved] = useState(false);
+    const [likeCount, setLikeCount] = useState(post.likeCount || 0)
 
     const handleLikeButton = async () => {
         if (isLiked) {
             await handleUnLike(post._id);
             setIsLiked(false);
+            setLikeCount(prev => prev - 1)
         } else {
             await handleLike(post._id);
             setIsLiked(true);
+            setLikeCount(prev => prev + 1)
         }
     };
     const isText = post.type === 'text'
@@ -59,15 +62,16 @@ const Post = ({ user, post, handleLike, handleUnLike }) => {
                     <button aria-label="Comment">
                         <i className="ri-chat-3-line"></i>
                     </button>
-                    <button aria-label="Share">
-                        <i className="ri-send-plane-line"></i>
-                    </button>
                 </div>
                 <div className="right">
                     <button onClick={() => setIsSaved(!isSaved)} aria-label="Save post" >
                         <i className={isSaved ? "ri-bookmark-fill" : "ri-bookmark-line"} ></i>
                     </button>
                 </div>
+            </div>
+
+            <div className="like-count">
+                {likeCount} {likeCount === 1 ? "like" : "likes"}
             </div>
 
             {!isText && (

@@ -20,7 +20,8 @@ const Feed = () => {
         handleGetFeed(activeCategory)
     }, [activeCategory])
 
-    if (loading || !feed) {
+
+    if (feed === null) {
         return (
             <main className="feed-loading">
                 <div className="loading-spinner"></div>
@@ -43,15 +44,23 @@ const Feed = () => {
                         </button>
                     ))}
                 </div>
-                <div className="posts">
-                    {feed.filter(Boolean).map(post => {
-                        return<Post
+                <div className="posts">{
+                    feed.filter(Boolean).length > 0 ? (
+                        feed.filter(Boolean).map(post => (
+                            <Post
                                 key={post._id}
                                 user={post.user}
                                 post={post}
                                 handleLike={handleLike}
-                                handleUnLike={handleUnLike} />
-                    })}
+                                handleUnLike={handleUnLike}
+                            />
+                        ))
+                    ) : (
+                        <div className="empty-feed">
+                            <i className="ri-inbox-line"></i>
+                            <p>No posts for this category</p>
+                        </div>
+                    )}
                 </div>
             </div>
             <Sidebar />

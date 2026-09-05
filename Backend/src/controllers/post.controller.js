@@ -160,24 +160,33 @@ async function getFeedController(req, res) {
 
     const filter = category && category !== 'all' ? { category } : {}
 
-    const posts = await Promise.all(
-        (await postModel.find(filter).sort({ _id: -1 }).populate("user").lean())
-            .map(async (post) => {
+    const posts = await postModel.find(filter).sort({ _id: -1}).populate('user').lean()
 
-                const isLiked = await likeModel.findOne({
-                    user: user.username,
-                    post: post._id
-                })
+    const postIds = posts.map(post => post._id)
 
-                post.isLiked = Boolean(isLiked)
+    const likes = await likeModel.find({
+        post: {
+            $in: postIds
+        }
+    }).lean()
 
-                return post
-            })
-    )
+    const likesByPost = likes.reduce((acc, like) => {
+        const key = like.post.toString()
+        acc[key] = acc[key] || []
+        acc[key].push(like.user)
+        return acc
+    },{})
+
+    const feedPosts = posts.map(post => {
+        const postLikes = likesByPost[post._id.toString()] || []
+        post.isLiked = postLikes.includes(user.username)
+        post.likeCount = postLikes.length
+        return post
+    })
 
     res.status(200).json({
-        message: "feed loaded!",
-        posts
+        message: "Feed Loaded!",
+        posts: feedPosts
     })
 }
 

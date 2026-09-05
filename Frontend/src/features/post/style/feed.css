@@ -8,12 +8,12 @@
         minmax(0, 500px)
         320px
         minmax(20px, 1fr);
-
     grid-template-areas:
         "nav nav nav nav"
         ". feed sidebar .";
     column-gap: 40px;
     align-items: start;
+    align-content: start;
 }
 
 
@@ -51,6 +51,26 @@
 
 .feed .post:hover {
     border-color: #353539;
+}
+
+
+.empty-feed {
+    min-height: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #71717a;
+    text-align: center;
+}
+
+.empty-feed i {
+    font-size: 42px;
+    margin-bottom: 12px;
+}
+
+.empty-feed p {
+    font-size: 15px;
 }
 
 
@@ -110,7 +130,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 12px 3px;
+    padding: 10px 12px 0px;
 }
 
 .icons .left {
@@ -162,6 +182,14 @@
 .icons .left .like {
     color: #ff3040;
     animation: heartPop 0.3s ease;
+}
+
+.like-count{
+    margin-left: 18px;
+    margin-bottom: 10px;
+    margin-top: -5px;
+    width: fit-content;
+    font-size: .9rem;
 }
 
 @keyframes heartPop {
@@ -263,7 +291,7 @@
 }
 
 .category-tabs button.active {
-    background: linear-gradient(135deg, #f9ce34, #ee2a7b, #6228d7);
+    background-color: royalblue;
     border-color: transparent;
     color: white;
 }
@@ -327,7 +355,7 @@
 }
 
 .post-type-toggle button.active {
-    background: linear-gradient(135deg, #f9ce34, #ee2a7b, #6228d7);
+    background-color: purple;
     color: white;
     border-color: transparent;
 }
@@ -346,7 +374,12 @@
     color: #151515;
     font-size: 16px;
     padding: 15px;
+    padding-right: 60px;
     resize: vertical;
+}
+
+.text-post-compose{
+    position: relative;
 }
 
 .text-post-compose .char-count {

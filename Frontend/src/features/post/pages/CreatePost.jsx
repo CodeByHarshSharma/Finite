@@ -101,7 +101,7 @@ const CreatePost = () => {
                             </div>
                         )}
 
-                        <label htmlFor="category">Category</label>
+                        <label htmlFor="category">Select Category</label>
                         <select id="category" value={category} onChange={(e) => setCategory(e.target.value)}>
                             {CATEGORIES.map(c => (
                                 <option key={c} value={c}>{c[0].toUpperCase() + c.slice(1)}</option>
