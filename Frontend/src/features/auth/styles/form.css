@@ -25,7 +25,7 @@ main {
     gap: 1rem;
 }
 
-form input {
+.form-container form input {
     width: calc(100% + 5rem);
     margin-left: -2.5rem;
     box-sizing: border-box;
@@ -49,6 +49,13 @@ form button {
     outline: none;
     font-size: 1rem;
     transition: all .4s;
+}
+
+.form-error {
+    color: #ff6b6b;
+    font-size: 0.85rem;
+    text-align: left;
+    margin-left: -35px;
 }
 
 form button:active {

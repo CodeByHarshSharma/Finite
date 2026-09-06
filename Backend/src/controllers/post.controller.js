@@ -3,6 +3,8 @@ const ImageKit = require("@imagekit/nodejs")
 const { toFile } = require('@imagekit/nodejs')
 const jwt = require('jsonwebtoken')
 const likeModel = require('../models/like.model')
+const commentModel = require('../models/comment.model')
+
 
 const imageKit = new ImageKit({
     privateKey: process.env.IMAGEKIT_PRIVATE_KEY
@@ -160,7 +162,11 @@ async function getFeedController(req, res) {
 
     const filter = category && category !== 'all' ? { category } : {}
 
-    const posts = await postModel.find(filter).sort({ _id: -1}).populate('user').lean()
+    const posts = await postModel
+        .find(filter)
+        .sort({ _id: -1 })
+        .populate('user')
+        .lean()
 
     const postIds = posts.map(post => post._id)
 
@@ -175,7 +181,18 @@ async function getFeedController(req, res) {
         acc[key] = acc[key] || []
         acc[key].push(like.user)
         return acc
-    },{})
+    }, {})
+
+    const commentsCounts = await commentModel.aggregate([
+        { $match: { post: { $in: postIds  } } },
+
+        { $group: { _id: "$post", count: { $sum: 1 } } }
+    ])
+
+    const commentByPost = commentsCounts.reduce((acc, row) => {
+        acc[row._id.toString()] = row.count
+        return acc
+    }, {})
 
     const feedPosts = posts.map(post => {
         const postLikes = likesByPost[post._id.toString()] || []

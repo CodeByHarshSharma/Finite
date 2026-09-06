@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import '../styles/form.css'
 import { Link, useNavigate } from 'react-router'
-import axios from 'axios'
 import { useAuth } from '../hooks/useAuth.jsx'
 import BorderGlow from '../components/BorderGlow.jsx'
 
@@ -10,6 +9,8 @@ const Login = () => {
 
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
+  const [submitting, setSubmitting] = useState(false)
 
   const { handleLogin, loading } = useAuth()
   const navigate = useNavigate()
@@ -22,12 +23,19 @@ const Login = () => {
 
   async function handleSubmit(e) {
     e.preventDefault()
+    setError("")
+    setSubmitting(true)
 
-    handleLogin(username, password)
-      .then(res => {
-        navigate('/')
-      })
-
+    try{
+      await handleLogin(username, password)
+      navigate('/')
+    }
+    catch(err){
+      setError(err?.response.data?.message || "Couldn't log in. Please check your credentials")
+    }
+    finally{
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -57,7 +65,11 @@ const Login = () => {
               name="password"
               placeholder='Enter Password' />
 
-            <button className='submit'>Login</button>
+            {error && <p className='form-error'>{error}</p>}
+
+            <button className='submit' disabled={submitting}>
+              {submitting ? 'Logging in...' : 'Login'}
+            </button>
           </form>
 
           <p>Don't have an account?<Link className='toggleAuthForm' to='/register'>Register</Link></p>

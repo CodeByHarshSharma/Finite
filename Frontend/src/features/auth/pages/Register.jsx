@@ -14,11 +14,23 @@ const Register = () => {
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
+  const [submitting, setSubmitting] = useState(false)
 
   async function handleSubmit(e) {
     e.preventDefault()
+    setError("")
+    setSubmitting(true)
 
-    await handleRegister(username, email, password)
+    try {
+      await handleRegister(username, email, password)
+    }
+    catch (err) {
+      setError(err?.response?.data?.message || "Couldn't create your account. Try Again.")
+    }
+    finally {
+      setSubmitting(false)
+    }
 
     navigate('/')
   }
@@ -37,18 +49,31 @@ const Register = () => {
         <div className="form-container">
           <h1>Register</h1>
           <form onSubmit={handleSubmit}>
-            <input onInput={(e) => { setUsername(e.target.value) }} type="text" name="username" placeholder='Enter Username' />
+            <input onInput={(e) => { setUsername(e.target.value) }}
+              type="text"
+              name="username"
+              placeholder='Enter Username' />
 
-            <input onInput={(e) => { setEmail(e.target.value) }} type="email" name="email" placeholder='Enter Email' />
+            <input onInput={(e) => { setEmail(e.target.value) }}
+              type="email"
+              name="email"
+              placeholder='Enter Email' />
 
-            <input onInput={(e) => { setPassword(e.target.value) }} type="password" name="password" placeholder='Enter Password' />
+            <input onInput={(e) => { setPassword(e.target.value) }}
+              type="password"
+              name="password"
+              placeholder='Enter Password' />
 
-            <button type='submit'>Register</button>
+            {error && <p className="form-error">{error}</p>}
+
+            <button type='submit' disabled={submitting}>
+              {submitting ? 'Creating account...' : 'Register'}
+            </button>
           </form>
 
           <p>Already have an account? <Link className='toggleAuthForm' to='/login'>Login</Link></p>
         </div>
-        </BorderGlow>
+      </BorderGlow>
     </main>
   )
 }

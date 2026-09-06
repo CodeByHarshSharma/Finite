@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import '../style/feed.css'
 import 'remixicon/fonts/remixicon.css'
 import { usePost } from '../hooks/usePost'
 import Post from '../components/Post'
 import Nav from '../../shared/components/Nav'
 import Sidebar from '../../users/components/SideBar'
+import {AuthContext} from '../../auth/auth.context'
 
 
 const CATEGORIES = ['all', 'general', 'tech', 'art', 'music', 'sports', 'food', 'travel']
@@ -15,6 +16,8 @@ const Feed = () => {
     const { feed, handleGetFeed, loading, handleLike, handleUnLike } = usePost()
     const [activeCategory, setActiveCategory] = useState('all')
 
+    const {user} = useContext(AuthContext)
+    const currentUserId = user?._id || user?.id
 
     useEffect(() => {
         handleGetFeed(activeCategory)
@@ -53,6 +56,7 @@ const Feed = () => {
                                 post={post}
                                 handleLike={handleLike}
                                 handleUnLike={handleUnLike}
+                                currentUserId={currentUserId}
                             />
                         ))
                     ) : (

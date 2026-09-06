@@ -47,6 +47,7 @@ async function registerController (req, res) {
     res.status(201).json({
         message: "Account Created!",
         user: {
+            _id: user._id,
             username: user.username,
             email: user.email,
             bio: user.bio,
@@ -82,7 +83,7 @@ async function loginController (req, res) {
 
     if(!isPasswordValid){
         return res.status(401).json({
-            message: "Invalid Password"
+            message: "Invalid Credentials"
         })
     }
 
@@ -98,6 +99,7 @@ async function loginController (req, res) {
     res.status(200).json({
         message: "User Logged IN!",
         user: {
+            _id: user._id,
             username: user.username,
             email: user.email,
             bio: user.bio,
@@ -113,6 +115,7 @@ async function getMeController (req, res){
 
     res.status(200).json({
         user: {
+            _id: user._id,
             username: user.username,
             email: user.email,
             bio: user.bio,
