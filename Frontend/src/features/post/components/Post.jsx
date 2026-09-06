@@ -11,6 +11,7 @@ const Post = ({ user, post, handleLike, handleUnLike, currentUserId }) => {
     const [likeCount, setLikeCount] = useState(post.likeCount || 0)
     const [showComments, setShowComments] = useState(false)
     const [commentCount, setCommentCount] = useState(post.commentCount || 0)
+    const [likePost, setLikePost] = useState(false)
 
     const handleLikeButton = async () => {
         if (isLiked) {
@@ -23,6 +24,18 @@ const Post = ({ user, post, handleLike, handleUnLike, currentUserId }) => {
             setLikeCount(prev => prev + 1)
         }
     };
+
+    const handleLikePost = (e) => {
+        e.preventDefault()
+        if (!isLiked) {
+            handleLikeButton()
+        }
+        setLikePost(true)
+        setTimeout(() => {
+            setLikePost(false)
+        }, 900)
+    }
+
     const isText = post.type === 'text'
 
     return (
@@ -45,7 +58,10 @@ const Post = ({ user, post, handleLike, handleUnLike, currentUserId }) => {
                     <p>{post.content}</p>
                 </div>
             ) : (
-                <img src={post.imgUrl} alt={post.caption || "Post"} loading="lazy" />
+                <div className="post-image-wrapper" onDoubleClick={handleLikePost}>
+                    <img src={post.imgUrl} alt={post.caption || "Post"} loading="lazy" />
+                    {likePost && <i className="ri-heart-fill big-heart-pop"></i>}
+                </div>
             )}
 
             <div className="icons">
@@ -87,8 +103,8 @@ const Post = ({ user, post, handleLike, handleUnLike, currentUserId }) => {
             {showComments && (
                 <div id={`comments-${post._id}`}>
                     <Comments
-                        postId={post._id} 
-                        currentUserId={currentUserId} 
+                        postId={post._id}
+                        currentUserId={currentUserId}
                         onCountChange={setCommentCount} />
                 </div>
             )}

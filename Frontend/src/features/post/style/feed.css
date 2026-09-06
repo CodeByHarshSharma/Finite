@@ -117,7 +117,7 @@
 }
 
 
-.post > img {
+.post .post-image-wrapper img {
     display: block;
     width: 100%;
     max-height: 600px;
@@ -376,6 +376,37 @@
     font-size: 13.5px;
     padding: 10px 13px;
     transition: border-color 0.2s ease;
+}
+
+.post-image-wrapper {
+    position: relative;
+}
+
+.big-heart-pop {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 90px;
+    pointer-events: none;
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.35));
+    animation: bigHeartPop 0.7s ease forwards;
+}
+
+.big-heart-pop::before {
+    background: linear-gradient(135deg, #ffe259, #ff8a3d, #ff375f);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+@keyframes bigHeartPop {
+    0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+    15%  { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+    30%  { transform: translate(-50%, -50%) scale(0.95); }
+    45%  { transform: translate(-50%, -50%) scale(1.05); }
+    60%  { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    100% { opacity: 0; transform: translate(-50%, -120%) scale(1); }
 }
 
 .post .comments .sr-only {
