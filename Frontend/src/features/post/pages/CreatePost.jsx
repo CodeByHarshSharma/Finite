@@ -44,6 +44,14 @@ const CreatePost = () => {
     }
     return (
         <main className='create-post-page'>
+            <button
+                type="button"
+                className="close-button"
+                aria-label="Close"
+                onClick={() => navigate('/')}>
+                <i className="ri-close-line"></i>
+            </button>
+
             <BorderGlow edgeSensitivity={30}
                 glowColor="40 80 80"
                 backgroundColor="#120F17"

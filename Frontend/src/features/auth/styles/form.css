@@ -75,7 +75,6 @@ form label {
     color: rgb(58, 58, 58);
     padding: .7rem;
     border-radius: 10px;
-    cursor: pointer;
 }
 
 form label[for='category']{

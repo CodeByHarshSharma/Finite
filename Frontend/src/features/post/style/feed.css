@@ -540,6 +540,41 @@
     display: none;
 }
 
+.create-post-page {
+    position: relative;
+}
+
+.create-post-page .close-button {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+    color: #f5f5f5;
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.create-post-page .close-button:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: scale(1.05);
+}
+
+@media (max-width: 600px) {
+    .create-post-page .close-button {
+        top: 1rem;
+        right: 1rem;
+    }
+}
+
 .create-post-page form{
     width: 100%;
     padding: 0rem 3rem;

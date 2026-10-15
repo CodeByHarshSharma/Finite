@@ -40,3 +40,12 @@ export async function getMe() {
         throw error
     }
 }
+
+export async function logout() {
+    try {
+        const response = await api.post('/logout')
+        return response.data
+    } catch (error) {
+        throw error
+    }
+}
